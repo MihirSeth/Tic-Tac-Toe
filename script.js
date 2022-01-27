@@ -3,27 +3,54 @@ let round;
 
 let gameArray = ['','','','','','','','','',];
 
-let defaultArray = ['','','','','','','','','',];
-
 const gameTiles = document.querySelectorAll(".gameboardTiles");
 const resetButton = document.getElementById('reset')
+const currentPlayerText = document.getElementById('currentPlayer')
+const submitButton = document.getElementById('submit');
+
+submitButton.addEventListener('click', submitButtonFunction);
+const mainGameboardContainer = document.getElementById('mainGameboardContainer');
+const playerNameContainer = document.getElementById('playerNameContainer');
 
 resetButton.addEventListener('click', resetGrid);
 
-
-
-// gameTiles.addEventListener('click', gameTilesPress);
-
 gameTiles.forEach(gameTilesPress);
 
+function submitButtonFunction(){
+    const player1 = document.getElementById('player1').value;
+    const player2 = document.getElementById('player2').value;
 
 
+    if (player1 === '' || player2 === '' ){ 
+        alert('We need another player!')
+
+    } else{
+        // inputPlayerContainer.style.visibility = 'hidden';
+        playerNameContainer.style.display = 'none';
+
+        mainGameboardContainer.style.display = 'block';
+        // console.log(player2)
+    }
+
+}
 
 function formGrid(){
-    // console.log(gameTiles[1])
     for(i=0; i<gameArray.length ;i++){
         gameTiles[i].innerHTML = gameArray[i]
         gameTiles[i].style.color = 'black'
+    }
+}
+
+function gameTilesPress(tile){
+    tile.addEventListener('click', addInfoArray);
+
+    function addInfoArray(){
+
+        if (gameArray[tile.dataset.id]==='' && gameController.getGameStatus() !== true){
+            gameArray[tile.dataset.id] = gameController.setCurrentPlayer()
+            gameController.checkWinner()
+        }
+        formGrid()
     }
 }
 
@@ -32,51 +59,7 @@ const gameController = (() => {
     const playerO = 'O';
     let currentPlayer = '';
     round = 1;
-    // let isOver = false;
 
-    function setCurrentPlayer(){
-        if (round%2===1){
-            currentPlayer = playerX
-            round++
-            return playerX
-        } else{
-
-            currentPlayer = playerO
-            round++
-            return playerO
-        }
-        
-    }   
-
-    return {setCurrentPlayer};
-})();
-
-function resetGrid(){
-    for(i=0; i<gameArray.length ;i++){
-        gameTiles[i].innerHTML = ' '
-        gameArray = ['','','','','','','','','']
-        // gameTiles[i].style.color = 'black'
-    }
-
-    round = 1
-}
-
-function gameTilesPress(tile){
-    // console.log(tile)
-    tile.addEventListener('click', addInfoArray);
-
-    function addInfoArray(){
-        // console.log(gameController.setCurrentPlayer())
-
-        if (gameArray[tile.dataset.id]===''){
-            gameArray[tile.dataset.id] = gameController.setCurrentPlayer()
-            checkWinner()
-        }
-        formGrid()
-    }
-}
-
-const checkWinner = () => {
     const winningMoves = 
         [[0, 1, 2],
         [3, 4, 5],
@@ -87,43 +70,70 @@ const checkWinner = () => {
         [0, 4, 8],
         [2, 4, 6]];
 
-    indexesOfX = []
-    indexesOfO = []
+    let isOver = false
 
-    for(i = 0; i < gameArray.length; i++){
-        if (gameArray[i] === 'X'){
-            indexesOfX.push(i);
-        } else if(gameArray[i] === 'O'){
-            indexesOfO.push(i);
+    function setCurrentPlayer(){
+        if (round%2===1){
+            currentPlayer = playerX
+
+            currentPlayerText.innerHTML = "Player X's turn"
+            round++
+            return playerX
+        } else{
+
+            currentPlayer = playerO
+            currentPlayerText.innerHTML = "Player O's turn"
+            round++
+            return playerO
+        }
+        
+    }   
+
+    function checkWinner(){
+        for(i=0; i<winningMoves.length;i++){
+        
+            if (gameArray[winningMoves[i][0]] === 'X' && gameArray[winningMoves[i][1]] === 'X' && gameArray[winningMoves[i][2]] === 'X'){
+                console.log('Winner is X')
+    
+                currentPlayerText.innerHTML = 'Winner is X!'
+                isOver = true
+   
+            } else if (gameArray[winningMoves[i][0]] === 'O' && gameArray[winningMoves[i][1]] === 'O' && gameArray[winningMoves[i][2]] === 'O' ){
+                console.log('Winner is O')
+                isOver = true
+
+                currentPlayerText.innerHTML = 'Winner is O!'
+    
+            } else if (round === 10){
+                console.log('Stalemate')
+                currentPlayerText.innerHTML = 'It is a Stalemate!'
+                isOver = true
+            }
         }
     }
 
-    // console.log(indexesOfX, indexesOfO)
+    function getGameStatus(){
+        return isOver
+    }
 
-    // let count = 0;
-    // for(i=0; i<8;i++){
-        // console.log(i)
+    return {setCurrentPlayer, checkWinner, getGameStatus};
+})();
 
-        // for(j=0; j<indexesOfX.length; i++){
+function resetGrid(){
+    for(i=0; i<gameArray.length ;i++){
+        gameTiles[i].innerHTML = ' '
+        gameArray = ['','','','','','','','','']
+    }
 
-            // console.log(indexesOfX[j])
-
-            // if(winningMoves[i][0]===indexesOfX[j] || winningMoves[i][1]===indexesOfX[j] || winningMoves[i][2]===indexesOfX[j]){
-            //     count++
-            // }
-
-    //     }
-        
-    // }
-
-    // console.log(count)
-    
+    currentPlayerText.innerHTML = "Player X's turn"
+    round = 1
 }
 
 
 window.onload = () => {
-    // checkWinner()
-}
+
+
+    mainGameboardContainer.style.display = 'none';
+
+  }
   
-
-
