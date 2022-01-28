@@ -1,38 +1,37 @@
-let round;
-
 
 let gameArray = ['','','','','','','','','',];
+
+
+function Player(name, sign){
+    this.sign = sign;
+    this.name = name;
+
+  };
+
+
 
 const gameTiles = document.querySelectorAll(".gameboardTiles");
 const resetButton = document.getElementById('reset')
 const currentPlayerText = document.getElementById('currentPlayer')
 const submitButton = document.getElementById('submit');
 
-submitButton.addEventListener('click', submitButtonFunction);
 const mainGameboardContainer = document.getElementById('mainGameboardContainer');
 const playerNameContainer = document.getElementById('playerNameContainer');
 
-resetButton.addEventListener('click', resetGrid);
+resetButton.addEventListener('click', resetGridPass);
+
+submitButton.addEventListener('click', submitButtonFunctionPass);
+
+function resetGridPass(){
+    gameController.resetGrid()
+}
+
+function submitButtonFunctionPass(){
+    gameController.submitButtonFunction()
+}
 
 gameTiles.forEach(gameTilesPress);
 
-function submitButtonFunction(){
-    const player1 = document.getElementById('player1').value;
-    const player2 = document.getElementById('player2').value;
-
-
-    if (player1 === '' || player2 === '' ){ 
-        alert('We need another player!')
-
-    } else{
-        // inputPlayerContainer.style.visibility = 'hidden';
-        playerNameContainer.style.display = 'none';
-
-        mainGameboardContainer.style.display = 'block';
-        // console.log(player2)
-    }
-
-}
 
 function formGrid(){
     for(i=0; i<gameArray.length ;i++){
@@ -55,10 +54,10 @@ function gameTilesPress(tile){
 }
 
 const gameController = (() => {
-    const playerX = 'X';
-    const playerO = 'O';
+    // const playerX = 'X';
+    // const playerO = 'O';
     let currentPlayer = '';
-    round = 1;
+    let round = 1;
 
     const winningMoves = 
         [[0, 1, 2],
@@ -70,21 +69,43 @@ const gameController = (() => {
         [0, 4, 8],
         [2, 4, 6]];
 
-    let isOver = false
+    let isOver = false;
+    let playerArray = [];
+
+    function submitButtonFunction(){
+        const playerOneName = document.getElementById('player1').value;
+        const playerTwoName = document.getElementById('player2').value;
+    
+        // let player1 = new Player(playerOneName, 'X');
+        // let player2 = new Player(playerTwoName, 'O');
+    
+        if (playerOneName === '' || playerTwoName === '' ){ 
+            alert('We need another player!')
+    
+        } else{
+            let player1 = new Player(playerOneName, 'X');
+            let player2 = new Player (playerTwoName, 'O');
+            playerArray = [player1, player2]
+            playerNameContainer.style.display = 'none';
+            mainGameboardContainer.style.display = 'block';
+        }
+    
+    }
 
     function setCurrentPlayer(){
+        // console.log(playerArray)
         if (round%2===1){
-            currentPlayer = playerX
+            currentPlayer = playerArray[0].sign
 
-            currentPlayerText.innerHTML = "Player X's turn"
+            currentPlayerText.innerHTML = `Player ${playerArray[0].name}'s (X) turn`
             round++
-            return playerX
+            return playerArray[0].sign
         } else{
 
-            currentPlayer = playerO
-            currentPlayerText.innerHTML = "Player O's turn"
+            currentPlayer = playerArray[1].sign
+            currentPlayerText.innerHTML = `Player ${playerArray[1].name}'s (O) turn`
             round++
-            return playerO
+            return playerArray[1].sign
         }
         
     }   
@@ -116,18 +137,23 @@ const gameController = (() => {
         return isOver
     }
 
-    return {setCurrentPlayer, checkWinner, getGameStatus};
-})();
 
-function resetGrid(){
-    for(i=0; i<gameArray.length ;i++){
-        gameTiles[i].innerHTML = ' '
-        gameArray = ['','','','','','','','','']
+    function resetGrid(){
+        for(i=0; i<gameArray.length ;i++){
+            gameTiles[i].innerHTML = ' '
+            gameArray = ['','','','','','','','','']
+        }
+    
+        currentPlayerText.innerHTML = "Player X's turn"
+    
+        isOver = false
+        round = 1
     }
 
-    currentPlayerText.innerHTML = "Player X's turn"
-    round = 1
-}
+    return {setCurrentPlayer, checkWinner, getGameStatus, resetGrid, submitButtonFunction};
+})();
+
+
 
 
 window.onload = () => {
