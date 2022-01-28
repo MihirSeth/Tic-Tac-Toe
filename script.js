@@ -93,7 +93,7 @@ const gameController = (() => {
     }
 
     function setCurrentPlayer(){
-        // console.log(playerArray)
+        console.log(playerArray)
         if (round%2===1){
             currentPlayer = playerArray[0].sign
 
