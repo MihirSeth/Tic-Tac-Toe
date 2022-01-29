@@ -87,7 +87,7 @@ button:active{
 
 }
 
-.gameboardTiles{
+.gameboardTilesPvP,.gameboardTilesPvC{
     width: 175px;
     height: 175px;
     border: 1px solid black;
@@ -102,12 +102,12 @@ button:active{
     line-height: 200px;       
 }
 
-.gameboardTiles:hover{
+.gameboardTilesPvP:hover,.gameboardTilesPvC:hover{
     background-color: lightcoral;
     /* color: white; */
 }
 
-.gameboardTiles:active{
+.gameboardTilesPvP:active,.gameboardTilesPvC:active{
     /* transform: translateY(1px); */
     transform: scale(0.98);
 
@@ -248,3 +248,4 @@ button:hover{
 [hidden]{
     display:none;
   }
+
