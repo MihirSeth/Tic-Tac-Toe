@@ -39,7 +39,7 @@
 
 
     <div id='mainGameboardContainerPlayerVSPlayer'>
-        <h3 id='currentPlayer'>Player X's turn</h3>
+        <h3 id='currentPlayer'></h3>
         <div id='gameboardContainer' class='gameboardContainer'>
             <div class='gameboard'>
                 <div class="gameboardTilesPvP" data-id="0"></div>
@@ -54,7 +54,11 @@
             </div>
         </div>
 
-        <div id='reset' class='buttonContainer'><button>RESET</button></div>
+        <div id='reset' class='buttonContainer'>
+            <button>RESET</button>
+            <button id='backButtonPvP' class="backButton">GO BACK</button>
+        </div>
+
     </div> 
 
 
@@ -74,7 +78,11 @@
             </div>
         </div>
 
-        <div id='resetPvC' class='buttonContainer'><button>RESET</button></div>
+        <div id='resetPvC' class='buttonContainer'>
+            <button>RESET</button>
+            <button id='backButtonPvC' class="backButton">GO BACK</button>
+        </div>
+
     </div> 
 
 

@@ -15,6 +15,10 @@ const gameTilesPvP = document.querySelectorAll(".gameboardTilesPvP");
 const resetButton = document.getElementById('reset')
 const currentPlayerText = document.getElementById('currentPlayer')
 const mainGameboardContainerPvP = document.getElementById('mainGameboardContainerPlayerVSPlayer');
+const backButtonPvP = document.getElementById('backButtonPvP')
+
+
+backButtonPvP.addEventListener('click', backButtonPvCFunction);
 gameTilesPvP.forEach(gameTilesPressPvP);
 
 
@@ -23,7 +27,9 @@ const gameTilesPvC = document.querySelectorAll(".gameboardTilesPvC");
 const mainGameboardContainerPvC = document.getElementById('mainGameboardContainerPlayerVSComputer');
 const currentPlayerTextPvC = document.getElementById('currentPlayerPvC')
 const resetButtonPvC = document.getElementById('resetPvC')
-resetButtonPvC.addEventListener('click', resetGridPassPvC);
+const backButtonPvC = document.getElementById('backButtonPvC')
+
+backButtonPvC.addEventListener('click', backButtonPvCFunction);
 
 gameTilesPvC.forEach(gameTilesPressPvC);
 
@@ -40,7 +46,14 @@ backButtonPlayerNamePage.addEventListener('click', goBacktoGameClassifierPage);
 resetButton.addEventListener('click', resetGridPass);
 submitButton.addEventListener('click', submitButtonFunctionPass);
 
+function backButtonPvCFunction(){
 
+    mainGameboardContainerPvP.style.display = 'none';
+    mainGameboardContainerPvC.style.display = 'none';
+    playerNameContainer.style.display = 'none';
+    chooseGameTypeClassifier.style.display = 'block';
+
+}
 
 function goBacktoGameClassifierPage(){
     chooseGameTypeClassifier.style.display = 'block';
@@ -122,6 +135,8 @@ const gameControllerPvP = (() => {
             playerArray = [player1, player2]
             playerNameContainer.style.display = 'none';
             mainGameboardContainerPvP.style.display = 'block';
+            currentPlayerText.innerHTML = `Player ${playerArray[0].name}'s (X) turn`
+
         }
     
     }
@@ -130,13 +145,13 @@ const gameControllerPvP = (() => {
         // console.log(playerArray)
         if (round%2===1){
             currentPlayer = playerArray[0].sign
-            currentPlayerText.innerHTML = `Player ${playerArray[0].name}'s (X) turn`
+            currentPlayerText.innerHTML = `Player ${playerArray[1].name}'s (O) turn`
             round++
             return playerArray[0].sign
         } else{
 
             currentPlayer = playerArray[1].sign
-            currentPlayerText.innerHTML = `Player ${playerArray[1].name}'s (O) turn`
+            currentPlayerText.innerHTML = `Player ${playerArray[0].name}'s (X) turn`
             round++
             return playerArray[1].sign
         }
@@ -204,11 +219,15 @@ function gameTilesPressPvC(tile){
         if (gameArray[tile.dataset.id]==='' && gameControllerPvC.getGameStatus() !== true){
 
             if (gameControllerPvC.playerOrComputer() === 'Player'){
-                gameArray[tile.dataset.id] = 'X'
 
+
+                gameArray[tile.dataset.id] = 'X'
                 gameControllerPvC.roundIncrement() 
-          
-                gameArray[computerChoice()] = 'O'
+
+                if (gameControllerPvC.checkWinner() === undefined){
+            
+                    gameArray[computerChoice()] = 'O'
+                }
             
             }
             gameControllerPvC.checkWinner()
@@ -276,17 +295,22 @@ const gameControllerPvC = (() => {
     
                 currentPlayerTextPvC.innerHTML = 'Winner is X!'
                 isOver = true
+
+                return 'X'
    
             } else if (gameArray[winningMoves[i][0]] === 'O' && gameArray[winningMoves[i][1]] === 'O' && gameArray[winningMoves[i][2]] === 'O' ){
                 console.log('Winner is O')
                 isOver = true
-
                 currentPlayerTextPvC.innerHTML = 'Winner is O!'
+                return 'O'
+
     
             } else if (round === 10){
                 console.log('Stalemate')
                 currentPlayerTextPvC.innerHTML = 'It is a Stalemate!'
                 isOver = true
+                return 'NA'
+
             }
         }
     }
