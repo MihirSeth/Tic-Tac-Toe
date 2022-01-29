@@ -37,8 +37,7 @@ p{
     align-items: center; 
 }
 
-button{
-    
+button{  
     border: 2px solid black;
     /* background-color: #393e46; */
     background-color: #F05454;
@@ -138,24 +137,40 @@ input[type=text]{
     /* font-family: 'Sedgwick Ave', cursive; */
 }
 
-#submit:active{
-    /* transform: translateY(1px); */
-    transform: scale(0.98);
-
-}
 
 #submit:hover{
 
     background-color: lightseagreen;
 }
 
-.submitContainer{
+#backButtonPlayerNameInput{  
+    margin-top: 2%;
+    border: 2px solid black;
+    /* background-color: #393e46; */
+    background-color: #F05454;
+    padding: 12px 15px;
+
+    font-size: 26px;
+    font-weight: 600;
+    width: 75%;
+    border-radius: 10px;
+    color: #F5F5F5;
+    font-family: 'Sedgwick Ave', cursive;
+
+}
+
+#backButtonPlayerNameInput:hover{
+    background-color: lightblue;
+    color:black;
+}
+.playerNameInputPageContainer{
     width: 100%;
     height: 100px;
     /* border: 2px solid #1A3246; */
     display: flex;
     justify-content: center; 
     align-items: center; 
+    flex-direction: column;
 
 
 }
@@ -180,6 +195,55 @@ input[type=text]{
     align-items: center; 
 }
 
+
+.chooseGameTypeButtonContainer{
+    width: 100%;
+    height: 400px;
+    margin-top: 7%;
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 2%;
+}
+
+.playerVSplayer{  
+    border: 2px solid black;
+    /* background-color: #393e46; */
+    background-color: coral;
+    font-size: 40px;
+    font-weight: 600;
+    height: 20%;
+    width: 40%;
+    border-radius: 15px;
+    color: #F5F5F5;
+    font-family: 'Sedgwick Ave', cursive;
+}
+
+.playerVScomputer{  
+    border: 2px solid black;
+    /* background-color: #393e46; */
+    background-color: #fcbf49;
+    font-size: 40px;
+    font-weight: 600;
+    height: 20%;
+    width: 40%;
+    border-radius: 15px;
+    color: #F5F5F5;
+    font-family: 'Sedgwick Ave', cursive;
+
+}
+
+.playerVScomputer:hover{
+    background-color: lightseagreen;
+}
+
+.playerVSplayer:hover{
+    background-color: #478647;
+}
+button:hover{
+    background-color: lightblue;
+    color:black;
+}
 
 [hidden]{
     display:none;

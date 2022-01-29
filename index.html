@@ -10,7 +10,15 @@
 <body>
     <h1>Tic-Tac-Toe</h1>
 
-    <form id='playerNameContainer'>
+    <div id='chooseGameType'>
+        <h3>Choose what type of game you want to play</h3>
+        <div class='chooseGameTypeButtonContainer'>
+            <button id='playerVSplayer' class='playerVSplayer' onclick="playerVSplayerClassifier()">Player vs Player</button>
+            <button id='playerVScomputer' class='playerVScomputer' onclick="playerVScomputerClassifier()">Player vs Computer</button>
+        </div>
+    </div>
+
+  <form id='playerNameContainer'>
         <div id='inputPlayer' class='inputPlayer'>
             <div class='playerContainer'>
                 <p>Player 1 (X)</p>
@@ -22,14 +30,35 @@
             </div>
         </div>
 
-        <div class='submitContainer'>
+        <div class='playerNameInputPageContainer'>
             <button id='submit' type="button" value="Submit">Start</button>
-        </div>
+            <button id='backButtonPlayerNameInput'>Go Back</button>
 
+        </div>
     </form>
 
 
-    <div id='mainGameboardContainer'>
+    <div id='mainGameboardContainerPlayerVSPlayer'>
+        <h3 id='currentPlayer'>Player X's turn</h3>
+        <div id='gameboardContainer' class='gameboardContainer'>
+            <div class='gameboard'>
+                <div class="gameboardTilesPvP" data-id="0"></div>
+                <div class="gameboardTilesPvP" data-id="1"></div>
+                <div class="gameboardTilesPvP" data-id="2"></div>
+                <div class="gameboardTilesPvP" data-id="3"></div>
+                <div class="gameboardTilesPvP" data-id="4"></div>
+                <div class="gameboardTilesPvP" data-id="5"></div>
+                <div class="gameboardTilesPvP" data-id="6"></div>
+                <div class="gameboardTilesPvP" data-id="7"></div>
+                <div class="gameboardTilesPvP" data-id="8"></div>
+            </div>
+        </div>
+
+        <div id='reset' class='buttonContainer'><button>RESET</button></div>
+    </div> 
+
+
+    <div id='mainGameboardContainerPlayerVSComputer'>
         <h3 id='currentPlayer'>Player X's turn</h3>
         <div id='gameboardContainer' class='gameboardContainer'>
             <div class='gameboard'>
@@ -46,7 +75,7 @@
         </div>
 
         <div id='reset' class='buttonContainer'><button>RESET</button></div>
-    </div>
+    </div> 
 
 
 </body>

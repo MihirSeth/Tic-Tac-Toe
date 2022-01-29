@@ -10,17 +10,50 @@ function Player(name, sign){
 
 
 
-const gameTiles = document.querySelectorAll(".gameboardTiles");
+const gameTiles = document.querySelectorAll(".gameboardTilesPvP");
 const resetButton = document.getElementById('reset')
 const currentPlayerText = document.getElementById('currentPlayer')
 const submitButton = document.getElementById('submit');
-
 const mainGameboardContainer = document.getElementById('mainGameboardContainer');
+
+const mainGameboardContainerPvP = document.getElementById('mainGameboardContainerPlayerVSPlayer');
+const mainGameboardContainerPvC = document.getElementById('mainGameboardContainerPlayerVSComputer');
+
+
 const playerNameContainer = document.getElementById('playerNameContainer');
 
-resetButton.addEventListener('click', resetGridPass);
+const chooseGameTypeClassifier = document.getElementById('chooseGameType');
+const backButtonPlayerNamePage = document.getElementById('backButtonPlayerNameInput');
 
+// const playerVScomputerButton = document.getElementById('playerVScomputer');
+
+backButtonPlayerNamePage.addEventListener('click', goBacktoGameClassifierPage);
+resetButton.addEventListener('click', resetGridPass);
 submitButton.addEventListener('click', submitButtonFunctionPass);
+
+gameTiles.forEach(gameTilesPress);
+
+
+function goBacktoGameClassifierPage(){
+    chooseGameTypeClassifier.style.display = 'block';
+    playerNameContainer.style.display = 'none';
+}
+
+function playerVSplayerClassifier(){
+    chooseGameTypeClassifier.style.display = 'none';
+    playerNameContainer.style.display = 'block';
+}
+
+
+function playerVScomputerClassifier(){
+    // playerNameContainer.style.display = 'none';
+    chooseGameTypeClassifier.style.display = 'none';
+    mainGameboardContainer.style.display = 'block';
+
+    // alert('Still working on it :)')
+
+}
+
 
 function resetGridPass(){
     gameController.resetGrid()
@@ -30,7 +63,6 @@ function submitButtonFunctionPass(){
     gameController.submitButtonFunction()
 }
 
-gameTiles.forEach(gameTilesPress);
 
 
 function formGrid(){
@@ -54,8 +86,6 @@ function gameTilesPress(tile){
 }
 
 const gameController = (() => {
-    // const playerX = 'X';
-    // const playerO = 'O';
     let currentPlayer = '';
     let round = 1;
 
@@ -75,9 +105,6 @@ const gameController = (() => {
     function submitButtonFunction(){
         const playerOneName = document.getElementById('player1').value;
         const playerTwoName = document.getElementById('player2').value;
-    
-        // let player1 = new Player(playerOneName, 'X');
-        // let player2 = new Player(playerTwoName, 'O');
     
         if (playerOneName === '' || playerTwoName === '' ){ 
             alert('We need another player!')
@@ -154,12 +181,10 @@ const gameController = (() => {
 })();
 
 
-
-
 window.onload = () => {
 
-
-    mainGameboardContainer.style.display = 'none';
-
+    mainGameboardContainerPvP.style.display = 'none';
+    mainGameboardContainerPvC.style.display = 'none';
+    playerNameContainer.style.display = 'none';
   }
   
