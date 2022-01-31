@@ -2,4 +2,4 @@
 
 Play the classic Tic-Tac-Toe Game!!!
 
-Live Demo -> https://mihirseth.github.io/Library/
+Live Demo -> https://mihirseth.github.io/Tic-Tac-Toe/
